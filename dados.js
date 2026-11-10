@@ -4,7 +4,7 @@
    Para novos vídeos/publicações, copie um objeto completo, separando os objetos por vírgula. */
 window.CONTEUDO = {
   videos: [
-    {titulo: "Vídeo de divulgação dos resultados", descricao: "Uma apresentação do percurso da pesquisa sobre educação digital, inteligência artificial generativa e formação docente no Brasil e na Alemanha.", url: "", data: ""}
+    {titulo: "Vídeo de divulgação dos resultados", descricao: "Uma apresentação do percurso da pesquisa sobre educação digital, inteligência artificial generativa e formação docente no Brasil e na Alemanha.", url: "https://youtu.be/KfOsAgxaTik", data: ""}
   ],
   publicacoes: [
     {grupo:"projeto", autores:"Eucidio Pimenta Arruda; Tobias Hölterhof", titulo:"Teachers’ Uses and Perceptions of Generative AI in North Rhine-Westphalia, Germany: A DigCompEdu-Informed Analysis", veiculo:"Education Sciences", ano:"2026", detalhes:"16(8), 1348", idioma:"Inglês", tipo:"Artigo", doi:"10.3390/educsci16081348", url:"https://www.mdpi.com/2227-7102/16/8/1348", nota:"Resultado da segunda etapa alemã. Reconhece explicitamente o financiamento APQ-02697-23."},
@@ -16,3 +16,4 @@ window.CONTEUDO = {
     {grupo:"agenda", autores:"Eucidio Pimenta Arruda", titulo:"Inteligência artificial generativa no contexto da transformação do trabalho docente", veiculo:"Educação em Revista", ano:"2024", detalhes:"40, e48078", idioma:"Português", tipo:"Resenha avaliativa", doi:"10.1590/0102-469848078", url:"https://periodicos.ufmg.br/index.php/edrevista/article/view/48078", nota:"Produção associada à discussão sobre IA generativa e trabalho docente. Classificada pelo periódico como resenha avaliativa."}
   ]
 };
+
