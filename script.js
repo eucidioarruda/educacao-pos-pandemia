@@ -34,6 +34,8 @@
     link.href = url; link.target = '_blank'; link.rel = 'noopener noreferrer';
     return link;
   }
+  const german = document.documentElement.lang === 'de';
+  const t = (pt,de) => german ? de : pt;
   const content = window.CONTEUDO || {publicacoes:[], videos:[]};
   const list = document.getElementById('publication-list');
   function renderPublications(filter) {
@@ -42,16 +44,16 @@
     items.forEach(function (p) {
       const card = el('article', 'publication');
       const top = el('div', 'pub-top');
-      top.append(el('span','pub-group',p.grupo === 'projeto' ? 'VÍNCULO DIRETO AO APQ' : 'AGENDA DE PESQUISA'));
+      top.append(el('span','pub-group',p.grupo === 'projeto' ? t('VÍNCULO DIRETO AO APQ','DIREKTER APQ-BEZUG') : t('AGENDA DE PESQUISA','FORSCHUNGSAGENDA')));
       top.append(el('span','',p.tipo + ' · ' + p.idioma)); card.append(top);
-      const title=el('h3','',p.titulo); if(p.idioma==='Inglês')title.lang='en';card.append(title);
+      const title=el('h3','',p.titulo); if(p.idioma==='Inglês' || p.idioma==='Englisch')title.lang='en';card.append(title);
       card.append(el('p','pub-authors',p.autores), el('p','pub-venue',p.veiculo + ' · ' + p.ano + (p.detalhes ? ' · ' + p.detalhes : '')));
       if(p.doi)card.append(el('p','pub-doi','DOI: '+p.doi));
       if(p.nota)card.append(el('p','pub-note',p.nota));
-      if(/^https:\/\//.test(p.url))card.append(externalLink(p.url,'Acessar publicação'));
+      if(/^https:\/\//.test(p.url))card.append(externalLink(p.url,t('Acessar publicação','Publikation öffnen')));
       list.append(card);
     });
-    document.getElementById('publication-count').textContent=items.length+' publicações exibidas';
+    document.getElementById('publication-count').textContent=items.length+t(' publicações exibidas',' Publikationen angezeigt');
   }
   if(content.publicacoes.length) {
     renderPublications('todos');
@@ -81,11 +83,11 @@
   function player(video) {
     const id=youtubeId(video.url);if(!id)return null;
     const container=el('div','video-embed');const frame=el('div','player');const iframe=el('iframe');
-    iframe.src='https://www.youtube-nocookie.com/embed/'+id;
+    iframe.src='https://www.youtube-nocookie.com/embed/'+id+(german?'?hl=de&cc_lang_pref=de&cc_load_policy=1':'');
     iframe.title=video.titulo;iframe.loading='lazy';iframe.referrerPolicy='strict-origin-when-cross-origin';
     iframe.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
     iframe.allowFullscreen=true;frame.append(iframe);container.append(frame);
-    const caption=el('p','video-caption',video.titulo);caption.append(externalLink('https://www.youtube.com/watch?v='+id,'Assistir no YouTube'));container.append(caption);
+    const caption=el('p','video-caption',video.titulo);caption.append(externalLink('https://www.youtube.com/watch?v='+id,t('Assistir no YouTube','Auf YouTube ansehen')));container.append(caption);
     return container;
   }
   const first=content.videos[0];
@@ -95,9 +97,9 @@
     library.replaceChildren();
     content.videos.forEach(function(video,index){
       const article=el('article','video-description');const id=youtubeId(video.url);
-      article.append(el('span','tag',id?'VÍDEO · YOUTUBE':'EM PREPARAÇÃO'),el('h3','',video.titulo),el('p','',video.descricao));
+      article.append(el('span','tag',id?t('VÍDEO · YOUTUBE','VIDEO · YOUTUBE'):t('EM PREPARAÇÃO','IN VORBEREITUNG')),el('h3','',video.titulo),el('p','',video.descricao));
       if(video.data)article.append(el('p','small',video.data));
-      if(index===0){const link=el('a','text-link','Ver vídeo na página inicial ↑');link.href='#video-principal';article.append(link);}
+      if(index===0){const link=el('a','text-link',t('Ver vídeo na página inicial ↑','Zum Video auf der Startseite ↑'));link.href='#video-principal';article.append(link);}
       else{const embed=player(video);if(embed)article.append(embed);}
       library.append(article);
     });
